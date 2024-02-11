@@ -11,14 +11,15 @@ import java.time.Duration;
 
 public class MethodHandles {
     protected WebDriver driver;
-WebDriverWait wait;
+    WebDriverWait wait;
     public MethodHandles(WebDriver driver){
         this.driver=driver;
 
     }
 
     public WebElement webElement(By locator) {
-       return driver.findElement(locator);
+
+        return driver.findElement(locator);
     }
     protected void explicitWait(By locator, int time){
         wait = new WebDriverWait(driver, Duration.ofSeconds(time));

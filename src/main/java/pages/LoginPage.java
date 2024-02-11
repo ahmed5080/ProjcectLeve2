@@ -13,6 +13,7 @@ public class LoginPage extends MethodHandles {
     private final By emailField=By.id("Email");
     private final By passwordField = By.id("Password");
     private final By loginButton = By.cssSelector(".button-1.login-button");
+    
 
     public void insertEmail( String email){
         sendKeys(emailField,10,email);
