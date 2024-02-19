@@ -1,4 +1,4 @@
-package test;
+package login;
 
 import base.Base;
 import org.testng.annotations.DataProvider;
@@ -18,14 +18,7 @@ public class LoginTests extends Base {
         loginPage.clickOnLoginButton();
     }
 
-    @Test
-    public void testInvalidEmail() throws FileNotFoundException {
-        readDataFromJson = new ReadDataFromJson();
-        var loginPage = homePage.clickOnLoginLink();
-        loginPage.insertEmail(readDataFromJson.readJsonFile().Login.InvalidCredentials.InvalidEmail.Email);
-        loginPage.insertPassword(readDataFromJson.readJsonFile().Login.InvalidCredentials.InvalidEmail.Password);
-        loginPage.clickOnLoginButton();
-    }
+
 
     @DataProvider
     public Object[][] dataProviderForEmail() throws FileNotFoundException {
