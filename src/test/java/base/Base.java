@@ -1,19 +1,22 @@
 package base;
 
 import data.DataModel;
+import org.monte.screenrecorder.ScreenRecorder;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import pages.HomePage;
 import reader.ReadDataFromJson;
+import utils.ScreenRecorderUtil;
+import utils.UtilsTests;
 
 import java.io.FileNotFoundException;
+
+
+import java.lang.reflect.Method;
 
 public class Base {
     protected WebDriver driver;
@@ -21,6 +24,9 @@ public class Base {
     protected HomePage homePage;
     ChromeOptions chromeOptions;
     FirefoxOptions firefoxOptions;
+
+    UtilsTests utilsTests;
+
     @Parameters("browser")
     @BeforeClass
     public void setUp(String browser){
@@ -30,9 +36,20 @@ public class Base {
 
     }
     @BeforeMethod
-    public void goHome() throws FileNotFoundException {
+    public void goHome(Method method) throws Exception {
         readDataFromJson = new ReadDataFromJson();
         driver.get(readDataFromJson.readJsonFile().URL);
+        ScreenRecorderUtil.startRecord(method.getName());
+
+    }
+
+    @AfterMethod
+    public void afterMethod(Method method) throws Exception {
+        utilsTests = new UtilsTests(driver);
+        utilsTests.takeScreenShot(method);
+        ScreenRecorderUtil.stopRecord();
+
+
     }
   //  @AfterClass
     public void tearDown(){

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,10 +13,16 @@ import java.time.Duration;
 public class MethodHandles {
     protected WebDriver driver;
     WebDriverWait wait;
+    Actions actions;
+
     public MethodHandles(WebDriver driver){
         this.driver=driver;
 
     }
+
+    private final By barNotification = By.cssSelector("div[id='bar-notification']");
+
+    private final By loader = By.cssSelector(".ajax-loading-block-window");
 
     public WebElement webElement(By locator) {
 
@@ -53,4 +60,17 @@ public class MethodHandles {
         scrollIntoView(driver,webElement(locator));
         webElement(locator).sendKeys(text);
     }
+    protected boolean isDisplayed(By locator, int time){
+        invisibilityOfElement(loader,10);
+        explicitWait(locator,time);
+        return webElement(locator).isDisplayed();
+    }
+
+    public boolean barNotificationIsDisplayed(){
+        invisibilityOfElement(loader,10);
+        return isDisplayed(barNotification,10);
+    }
+
+
+
 }

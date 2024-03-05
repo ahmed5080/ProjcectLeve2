@@ -26,7 +26,7 @@ public class LoginTests extends Base {
     }
 
     @Test(dataProvider = "dataProviderForEmail")
-    public void testSuccessfulLogin(String username,String password) {
+    public void testSuccessfulLogin1(String username,String password) {
         var loginPage = homePage.clickOnLoginLink();
         loginPage.insertEmail(username);
         loginPage.insertPassword(password);
